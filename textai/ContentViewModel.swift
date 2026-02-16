@@ -10,15 +10,6 @@
 import Foundation
 import Combine
 
-/*
-struct ApiResponse: Decodable {
-    let gender: String
-    let f_perc: Float
-    let m_perc: Float
-
-}
-*/
-
 typealias ApiResponse = [String: Float]
 
 class ApiService {
