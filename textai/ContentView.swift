@@ -18,7 +18,7 @@ struct ContentView: View {
                 .textFieldStyle(.roundedBorder)
                 .lineLimit(1...10)
 
-            Button("Send POST Request") {
+            Button("Classify blog") {
                 viewModel.sendPostRequest(text: inputText)
             }
             .disabled(viewModel.isLoading)
