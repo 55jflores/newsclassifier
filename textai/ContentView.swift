@@ -14,8 +14,9 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 16) {
 
-            TextField("Enter text", text: $inputText)
+            TextField("Enter blog", text: $inputText, axis: .vertical)
                 .textFieldStyle(.roundedBorder)
+                .lineLimit(1...10)
 
             Button("Send POST Request") {
                 viewModel.sendPostRequest(text: inputText)
@@ -30,18 +31,29 @@ struct ContentView: View {
                 Text(error)
                     .foregroundColor(.red)
             }
-            if viewModel.responseJSON != nil {
-                Text("Response:")
-                    .font(.headline)
-                
-                Text("Gender: \(viewModel.responseJSON!.gender)")
-                    .padding()
-                Text("Female likelihood: \(String(format: "%.2f",viewModel.responseJSON!.f_perc*100))% likely")
-                    .padding()
-                Text("Male likelihood: \(String(format: "%.2f",viewModel.responseJSON!.m_perc*100))% likely")
-                    .padding()
-                
+            if let response = viewModel.responseJSON {
+
+                let sortedPredictions = response
+                    .sorted { $0.value > $1.value }
+
+                VStack(alignment: .leading, spacing: 8) {
+
+                    ForEach(Array(sortedPredictions.enumerated()), id: \.element.key) { index, item in
+                        
+                        if index == 0 {
+                            // ⭐ Top Prediction
+                            Text("\(item.key): \(item.value * 100, specifier: "%.1f")%")
+                                .font(.title)
+                                .fontWeight(.bold)
+                        } else {
+                            // Normal Predictions
+                            Text("\(item.key): \(item.value * 100, specifier: "%.1f")%")
+                                .font(.body)
+                        }
+                    }
+                }
             }
+
            
           
         }

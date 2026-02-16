@@ -10,12 +10,16 @@
 import Foundation
 import Combine
 
+/*
 struct ApiResponse: Decodable {
     let gender: String
     let f_perc: Float
     let m_perc: Float
 
 }
+*/
+
+typealias ApiResponse = [String: Float]
 
 class ApiService {
 
@@ -23,7 +27,7 @@ class ApiService {
     private init() {}
 
     func sendString(_ text: String) async throws -> ApiResponse {
-        guard let url = URL(string: "https://jflo-sentiment.hf.space/sentiment") else {
+        guard let url = URL(string: "https://jflo-text-classification.hf.space/classify") else {
             throw URLError(.badURL)
         }
 
