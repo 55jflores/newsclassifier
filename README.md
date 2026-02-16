@@ -1,10 +1,3 @@
-//
-//  README.md
-//  textai
-//
-//  Created by Jesus Flores on 2/16/26.
-//
-
 ## News classifier
 
 User can enter a blog article in and iOS application in order to classify it into 1 of 5 categories 
